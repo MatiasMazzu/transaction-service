@@ -1,9 +1,9 @@
 /**
- * Adapter de salida: implementación in-memory del puerto
- * ({@code InMemoryTransactionRepository}) con estructuras concurrentes
- * ({@code ConcurrentHashMap} para el store y para el índice de hijos).
+ * Outbound adapter: in-memory implementation of the port
+ * ({@code InMemoryTransactionRepository}) backed by concurrent data structures
+ * ({@code ConcurrentHashMap} for the store and for the children index).
  *
- * <p>Regla de dependencias: depende de {@code application.port} (implementa la interfaz
- * {@code TransactionRepository}) y de {@code domain} (usa el tipo {@code Transaction}).
+ * <p>Dependency rule: depends on {@code application.port} (implements the
+ * {@code TransactionRepository} interface) and on {@code domain} (uses the {@code Transaction} type).
  */
 package io.github.matiasmazzu.transactionservice.adapter.out.persistence;

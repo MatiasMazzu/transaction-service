@@ -1,9 +1,9 @@
 /**
- * Servicios de aplicación que orquestan los casos de uso (p. ej. {@code TransactionService}).
- * Aquí se aloja el {@code ReentrantLock} que serializa la escritura (stories futuras),
- * envolviendo validación y mutación en una sola sección crítica.
+ * Application services that orchestrate the use cases (e.g. {@code TransactionService}).
+ * This is where the {@code ReentrantLock} that serializes writes lives, wrapping
+ * validation and mutation in a single critical section.
  *
- * <p>Regla de dependencias: depende de {@code domain} y declara los puertos en
- * {@code application.port}. No conoce Spring Web ni la implementación in-memory.
+ * <p>Dependency rule: depends on {@code domain} and declares the ports in
+ * {@code application.port}. It knows nothing about Spring Web or the in-memory implementation.
  */
 package io.github.matiasmazzu.transactionservice.application;

@@ -1,9 +1,9 @@
 /**
- * Adapter de entrada REST: controller ({@code TransactionController}) y manejo centralizado
- * de errores ({@code GlobalExceptionHandler} con {@code @RestControllerAdvice}, Problem
+ * Inbound REST adapter: controller ({@code TransactionController}) and centralized
+ * error handling ({@code GlobalExceptionHandler} with {@code @RestControllerAdvice}, Problem
  * Details RFC 9457).
  *
- * <p>Regla de dependencias: depende de {@code application}. <strong>Nunca</strong> accede
- * directamente a {@code adapter.out.persistence}.
+ * <p>Dependency rule: depends on {@code application}. It <strong>never</strong> accesses
+ * {@code adapter.out.persistence} directly.
  */
 package io.github.matiasmazzu.transactionservice.adapter.in.web;

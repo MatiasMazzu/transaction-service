@@ -1,8 +1,8 @@
 /**
- * Puertos (interfaces) consumidos por la capa de aplicación, p. ej.
+ * Ports (interfaces) consumed by the application layer, e.g.
  * {@code TransactionRepository}.
  *
- * <p>Viven aquí —y no en {@code domain}— porque el puerto va donde está su consumidor
- * ({@code application}); el dominio permanece puro y nunca usa el repositorio.
+ * <p>They live here —and not in {@code domain}— because a port belongs with its consumer
+ * ({@code application}); the domain stays pure and never uses the repository.
  */
 package io.github.matiasmazzu.transactionservice.application.port;
