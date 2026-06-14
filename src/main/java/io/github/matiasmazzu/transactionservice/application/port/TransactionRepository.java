@@ -14,4 +14,6 @@ public interface TransactionRepository {
     Optional<Transaction> findById(long transactionId);
 
     Collection<Transaction> findChildren(long parentId);
+
+    Collection<Long> findByType(String type);
 }

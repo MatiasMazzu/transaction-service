@@ -220,6 +220,17 @@ class TransactionServiceTest {
             return children;
         }
 
+        @Override
+        public Collection<Long> findByType(String type) {
+            List<Long> ids = new ArrayList<>();
+            for (Transaction t : store.values()) {
+                if (t.type().equals(type)) {
+                    ids.add(t.transactionId());
+                }
+            }
+            return ids;
+        }
+
         int size() {
             return store.size();
         }
