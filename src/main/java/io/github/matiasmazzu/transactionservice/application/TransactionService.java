@@ -5,7 +5,13 @@ import io.github.matiasmazzu.transactionservice.domain.CycleChecker;
 import io.github.matiasmazzu.transactionservice.domain.Transaction;
 import io.github.matiasmazzu.transactionservice.domain.exception.CycleDetectedException;
 import io.github.matiasmazzu.transactionservice.domain.exception.ParentNotFoundException;
+import io.github.matiasmazzu.transactionservice.domain.exception.TransactionNotFoundException;
+import java.math.BigDecimal;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TransactionService {
@@ -37,5 +43,25 @@ public class TransactionService {
         } finally {
             lock.unlock();
         }
+    }
+
+    public BigDecimal sum(long transactionId) {
+        Transaction root = repository.findById(transactionId)
+                .orElseThrow(() -> new TransactionNotFoundException("transaction " + transactionId + " not found"));
+        BigDecimal total = BigDecimal.ZERO;
+        Set<Long> visited = new HashSet<>();
+        Deque<Transaction> stack = new ArrayDeque<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Transaction current = stack.pop();
+            if (!visited.add(current.transactionId())) {
+                continue;
+            }
+            total = total.add(current.amount());
+            for (Transaction child : repository.findChildren(current.transactionId())) {
+                stack.push(child);
+            }
+        }
+        return total;
     }
 }
