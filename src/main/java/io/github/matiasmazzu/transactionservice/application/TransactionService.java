@@ -8,6 +8,7 @@ import io.github.matiasmazzu.transactionservice.domain.exception.ParentNotFoundE
 import io.github.matiasmazzu.transactionservice.domain.exception.TransactionNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Map;
@@ -63,5 +64,9 @@ public class TransactionService {
             }
         }
         return total;
+    }
+
+    public Collection<Long> findByType(String type) {
+        return repository.findByType(type);
     }
 }

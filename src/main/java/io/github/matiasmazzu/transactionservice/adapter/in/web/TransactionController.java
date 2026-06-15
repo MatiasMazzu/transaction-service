@@ -1,9 +1,12 @@
 package io.github.matiasmazzu.transactionservice.adapter.in.web;
 
 import io.github.matiasmazzu.transactionservice.adapter.in.web.dto.StatusResponse;
+import io.github.matiasmazzu.transactionservice.adapter.in.web.dto.SumResponse;
 import io.github.matiasmazzu.transactionservice.adapter.in.web.dto.TransactionRequest;
 import io.github.matiasmazzu.transactionservice.application.TransactionService;
 import jakarta.validation.Valid;
+import java.util.Collection;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,5 +27,15 @@ public class TransactionController {
     public StatusResponse upsert(@PathVariable long transactionId, @Valid @RequestBody TransactionRequest request) {
         service.upsert(request.toTransaction(transactionId));
         return StatusResponse.ok();
+    }
+
+    @GetMapping("/types/{type}")
+    public Collection<Long> findByType(@PathVariable String type) {
+        return service.findByType(type);
+    }
+
+    @GetMapping("/sum/{transactionId}")
+    public SumResponse sum(@PathVariable long transactionId) {
+        return SumResponse.of(service.sum(transactionId));
     }
 }
