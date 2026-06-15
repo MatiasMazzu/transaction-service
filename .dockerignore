@@ -1,0 +1,12 @@
+target/
+.git/
+.gitignore
+.github/
+.idea/
+*.iml
+_bmad/
+_bmad-output/
+.claude/
+**/*.md
+Dockerfile
+.dockerignore
