@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Transaction Service API
+  description: Registers transactions over a parent-child graph and computes transitive
+    sums.
+  version: 0.0.1
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /transactions/{transactionId}:
+    put:
+      tags:
+      - transaction-controller
+      operationId: upsert
+      parameters:
+      - name: transactionId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+  /transactions/types/{type}:
+    get:
+      tags:
+      - transaction-controller
+      operationId: findByType
+      parameters:
+      - name: type
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+  /transactions/sum/{transactionId}:
+    get:
+      tags:
+      - transaction-controller
+      operationId: sum
+      parameters:
+      - name: transactionId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SumResponse"
+components:
+  schemas:
+    TransactionRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        type:
+          type: string
+          minLength: 1
+        parent_id:
+          type: integer
+          format: int64
+      required:
+      - amount
+      - type
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    SumResponse:
+      type: object
+      properties:
+        sum:
+          type: number
+          format: double
